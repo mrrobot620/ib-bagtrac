@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="padding">
+    <form method="post" action="{% url 'home' %}" onsubmit="return validateForm()">
+
+{% if messages %}
+<div class="container mt-4">
+    {% for message in messages %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error:</strong> {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+        {% csrf_token %}
+        <div class="hms_margin">
+        </div>
+        <div>
+            <label for="bag_seal" class="form-label">Bag/Seal ID</label>
+            <input type="text" class="form-control hms_bg_color hms_margin" id="bag_seal" name="Bag/Seal_ID">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Cage ID</label>
+            <input type="text" class="form-control hms_bg_color" name="Cage_ID" id="cage">
+        </div>
+        <button type="submit" class="btn hms_bg">Submit</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+<script>
+    document.getElementById("bag_seal").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); 
+            var nextInput = document.getElementById("cage");
+            if (nextInput) {
+                nextInput.focus();
+            }
+        }
+    });
+
+</script>
+
+{% endblock %}
